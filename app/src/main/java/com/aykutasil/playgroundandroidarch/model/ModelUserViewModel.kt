@@ -1,6 +1,7 @@
 package com.aykutasil.playgroundandroidarch.model
 
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
@@ -24,6 +25,9 @@ class ModelUserViewModel : ViewModel() {
         liveData?.value = userList
     }
 
+    fun abc(){
+
+    }
 
     companion object {
         fun create(activity: AppCompatActivity): ModelUserViewModel {

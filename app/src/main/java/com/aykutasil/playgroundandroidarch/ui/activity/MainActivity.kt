@@ -3,10 +3,12 @@ package com.aykutasil.playgroundandroidarch.ui.activity
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
 import android.arch.lifecycle.Observer
+import android.location.Location
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import com.aykutasil.playgroundandroidarch.R
+import com.aykutasil.playgroundandroidarch.model.LocationLiveData
 import com.aykutasil.playgroundandroidarch.model.ModelUser
 import com.aykutasil.playgroundandroidarch.model.ModelUserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -72,6 +74,38 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
             modelUserViewModel.changeUsers(userList)
         }
+
+        println("Current Life Cycle: " + lifecycleRegistry.currentState.name)
+
+
+        LocationLiveData.get(this).observe(this, Observer<Location> {
+            println(it.toString())
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("Current Life Cycle: " + lifecycleRegistry.currentState.name)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        println("Current Life Cycle: " + lifecycleRegistry.currentState.name)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println("Current Life Cycle: " + lifecycleRegistry.currentState.name)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println("Current Life Cycle: " + lifecycleRegistry.currentState.name)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        println("Current Life Cycle: " + lifecycleRegistry.currentState.name)
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -91,4 +125,6 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner {
         }
         false
     }
+
+
 }
