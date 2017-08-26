@@ -20,6 +20,10 @@ class ModelUserViewModel : ViewModel() {
         liveData?.value = userList
     }
 
+    fun changeUsers(userList: List<ModelUser>) {
+        liveData?.value = userList
+    }
+
 
     companion object {
         fun create(activity: AppCompatActivity): ModelUserViewModel {

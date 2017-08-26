@@ -2,6 +2,7 @@ package com.aykutasil.playgroundandroidarch.ui.activity
 
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
@@ -26,6 +27,15 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
         val modelUserViewModel = ModelUserViewModel.create(this)
 
+        modelUserViewModel.liveData?.observe(this, Observer<List<ModelUser>>() {
+            val stringBuilder = StringBuilder()
+            it?.forEach {
+                stringBuilder.append(it.ad + " " + it.soyad)
+                stringBuilder.append("\n")
+            }
+            Users.text = stringBuilder.toString()
+        })
+
         // viewmodel imize değerleri yüklüyoruz
         ButtonSetUser.setOnClickListener {
             val userList = ArrayList<ModelUser>()
@@ -44,6 +54,23 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner {
                 println(it.ad)
                 println(it.soyad)
             })
+        }
+
+        ButtonChangeUser.setOnClickListener {
+            val userList = ArrayList<ModelUser>()
+            var modelUser = ModelUser("Aslı", "Asil")
+            userList.add(modelUser)
+
+            modelUser = ModelUser("Ayşe", "Asil")
+            userList.add(modelUser)
+
+            modelUser = ModelUser("Ahmet", "Asil")
+            userList.add(modelUser)
+
+            modelUser = ModelUser("Hilal", "Asil")
+            userList.add(modelUser)
+
+            modelUserViewModel.changeUsers(userList)
         }
     }
 
